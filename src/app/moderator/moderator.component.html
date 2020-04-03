@@ -1,0 +1,38 @@
+<h1>Moderator</h1>
+
+State: {{ state$ | async }}
+
+<div class="mb-2">
+  <button type="button" (click)="reset()" class="btn btn-danger">Reset</button>
+</div>
+
+<app-moderator-question></app-moderator-question>
+
+<div class="mt-5 mb-2">
+  <button type="button" (click)="setState(1)" class="btn btn-success mr-2">Frage zeigen und Antworteingabe öffnen</button>
+</div>
+
+<div *ngIf="(state$ | async) === 1">
+  <app-moderator-own-answer></app-moderator-own-answer>
+  <strong>Anzahl Antworten:</strong> {{ (answers$ | async)?.length }}
+
+  <pre>{{ answers$ | async | json }}</pre>
+</div>
+
+<div class="mb-2">
+  <button type="button" (click)="setState(2)" class="btn btn-success mr-2">Antworteingabe schließen</button>
+</div>
+
+<app-moderator-answers-edit *ngIf="(state$ | async) === 2"></app-moderator-answers-edit>
+
+<div class="mb-2">
+  <button type="button" (click)="setState(3)" class="btn btn-success mr-2">Antworten zeigen und Auswahl öffnen</button>
+</div>
+
+<div class="mb-2">
+  <button type="button" (click)="setState(4)" class="btn btn-success mr-2">Ergebnisse zeigen</button>
+</div>
+
+
+<pre>{{ answers$ | async | json }}</pre>
+

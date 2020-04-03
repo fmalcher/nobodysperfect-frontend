@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-player',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerComponent implements OnInit {
 
-  constructor() { }
+  state$ = this.ds.state$;
+  myName$ = this.ds.myName$;
+
+  constructor(private ds: DataService) { }
 
   ngOnInit(): void {
   }

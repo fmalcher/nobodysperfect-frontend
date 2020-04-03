@@ -1,0 +1,7 @@
+<form (ngSubmit)="submit()" class="form-group" [formGroup]="form">
+  <label>Frage eingeben</label>
+  <input class="form-control" formControlName="question">
+  <button type="submit" class="btn btn-primary">Frage setzen</button>
+</form>
+
+<strong>Frage:</strong> {{ question$ | async }}

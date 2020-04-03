@@ -1,0 +1,17 @@
+<h2>Antwort auswählen</h2>
+
+<h4 class="mt-5">{{ question$ | async }}</h4>
+
+<table class="table table-striped">
+  <tbody>
+    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-success': (myChosenAnswerName$ | async) === a.name }">
+      <td>
+        {{ a.answer }}
+        <button
+          class="btn btn-sm float-right btn-warning"
+          [disabled]="buttonsDisabled"
+          (click)="select(a.name)">Auswählen</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

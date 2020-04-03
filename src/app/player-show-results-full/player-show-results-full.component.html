@@ -1,0 +1,30 @@
+<h2>Ergebnisse</h2>
+
+<h4 class="mt-3">{{ question$ | async }}</h4>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Antwort</th>
+      <th>gewählt von</th>
+      <th>geschrieben von</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-primary': isModerator(a) }">
+      <td>
+        {{ a.answer }}
+      </td>
+      <td>
+        <strong>
+          <ng-container *ngFor="let n of a.answeredBy; last as l">
+            {{ n }}<ng-container *ngIf="!l">, </ng-container>
+          </ng-container>
+        </strong>
+      </td>
+      <td>
+        {{ a.name }}
+      </td>
+    </tr>
+  </tbody>
+</table>

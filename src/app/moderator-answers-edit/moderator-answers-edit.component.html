@@ -1,0 +1,12 @@
+<h3>Antworten bearbeiten</h3>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div formArrayName="answers">
+    <div class="form-group" *ngFor="let a of answersOnce$ | async; index as i">
+      <label>{{ a.name }}</label>
+      <input type="text" [formControlName]="i" class="form-control">
+    </div>
+  </div>
+
+  <button class="btn btn-primary mb-5" type="submit">Antworten speichern</button>
+</form>
