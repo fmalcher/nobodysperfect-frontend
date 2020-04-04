@@ -44,8 +44,7 @@ export class DataService {
   myChosenAnswerName$ = this.answers$.pipe(
     withLatestFrom(this.myName$),
     map(([answers, myName]) => answers.find(a => a.answeredBy && a.answeredBy.includes(myName))),
-    filter(e => !!e),
-    map(a => a.name),
+    map(a => a && a.name),
     distinctUntilChanged(),
     shareReplay(1),
   );
