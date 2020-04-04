@@ -8,6 +8,12 @@
   <button class="btn btn-primary" type="submit">Antwort abschicken</button>
 </form>
 
-<div *ngIf="myAnswer$ | async as myAnswer">
+<div *ngIf="myAnswer$ | async as myAnswer" class="mt-2">
   <strong>Meine Antwort:</strong> {{ myAnswer.answer }}
+</div>
+
+
+<div class="text-muted small mt-4">
+  Bitte gib deine Lösung für die Frage ein. Sie sollte so überzeugend sein, dass die anderen Spieler nachher darauf tippen.
+  Gib nicht die richtige Antwort ein, sondern denke dir bewusst etwas falsches und überzeugendes aus.
 </div>

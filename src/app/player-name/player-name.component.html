@@ -1,5 +1,6 @@
 <h5 (click)="doShowForm()">Mein Name<ng-container *ngIf="myName$ | async as myName">: {{ myName }}</ng-container></h5>
 
+
 <form (ngSubmit)="submit()" [formGroup]="form" *ngIf="showForm">
   <div class="form-group">
     <input formControlName="name" class="form-control" placeholder="Bitte wähle einen Namen">
@@ -7,3 +8,5 @@
 
   <button type="submit" class="btn btn-primary">Name setzen</button>
 </form>
+
+<div class="alert alert-warning mt-3" *ngIf="!(myName$ | async)">Du hast noch keinen Namen eingegeben!</div>

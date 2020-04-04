@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-primary': isModerator(a) }">
+    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-success': isModerator(a) }">
       <td>
         {{ a.answer }}
       </td>

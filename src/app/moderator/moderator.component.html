@@ -1,15 +1,19 @@
-<h1>Moderator</h1>
+<h1>
+  Moderator
+  <span class="badge badge-secondary">{{ state$ | async }}</span>
+</h1>
 
-State: {{ state$ | async }}
+
 
 <div class="mb-2">
-  <button type="button" (click)="reset()" class="btn btn-danger">Reset</button>
+  <button type="button" (click)="reset()" class="btn btn-danger mr-2">Reset (0)</button>
+  <button type="button" (click)="setState(0)" class="btn btn-warning">Idle (0)</button>
 </div>
 
 <app-moderator-question></app-moderator-question>
 
 <div class="mt-5 mb-2">
-  <button type="button" (click)="setState(1)" class="btn btn-success mr-2">Frage zeigen und Antworteingabe öffnen</button>
+  <button type="button" (click)="setState(1)" class="btn btn-success mr-2">Frage zeigen und Antworteingabe öffnen (1)</button>
 </div>
 
 <div *ngIf="(state$ | async) === 1">
@@ -20,19 +24,20 @@ State: {{ state$ | async }}
 </div>
 
 <div class="mb-2">
-  <button type="button" (click)="setState(2)" class="btn btn-success mr-2">Antworteingabe schließen</button>
+  <button type="button" (click)="setState(2)" class="btn btn-success mr-2">Antworteingabe schließen (2)</button>
 </div>
 
 <app-moderator-answers-edit *ngIf="(state$ | async) === 2"></app-moderator-answers-edit>
 
 <div class="mb-2">
-  <button type="button" (click)="setState(3)" class="btn btn-success mr-2">Antworten zeigen und Auswahl öffnen</button>
+  <button type="button" (click)="setState(3)" class="btn btn-success mr-2">Antworten zeigen und Auswahl öffnen (3)</button>
 </div>
 
 <div class="mb-2">
-  <button type="button" (click)="setState(4)" class="btn btn-success mr-2">Ergebnisse zeigen</button>
+  <button type="button" (click)="setState(4)" class="btn btn-success mr-2">Ergebnisse zeigen (4)</button>
 </div>
 
-
+<div class="bg-light p-3">
+<strong>Antworten</strong>
 <pre>{{ answers$ | async | json }}</pre>
-
+</div>

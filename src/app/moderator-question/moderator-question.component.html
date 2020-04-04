@@ -1,6 +1,9 @@
-<form (ngSubmit)="submit()" class="form-group" [formGroup]="form">
-  <label>Frage eingeben</label>
-  <input class="form-control" formControlName="question">
+<form (ngSubmit)="submit()" [formGroup]="form">
+  <div class="form-group">
+    <label>Frage eingeben</label>
+    <input class="form-control" formControlName="question">
+  </div>
+
   <button type="submit" class="btn btn-primary">Frage setzen</button>
 </form>
 

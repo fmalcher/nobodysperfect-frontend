@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000',
-  dataJSONUrl: '/assets/data.json'
+  apiUrl: 'https://nobodysperfect-server.herokuapp.com',
+  dataJSONUrl: 'https://nobodysperfect-server.herokuapp.com/data.json'
 };

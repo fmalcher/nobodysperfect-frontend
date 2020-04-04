@@ -1,10 +1,15 @@
 <h2>Antwort auswählen</h2>
 
-<h4 class="mt-5">{{ question$ | async }}</h4>
+<div class="text-muted small mt-2">
+  Wähle jetzt die Antwort aus, von der du denkst, dass sie die richtige ist.
+</div>
+
+
+<h4 class="mt-4 mb-3">{{ question$ | async }}</h4>
 
 <table class="table table-striped">
   <tbody>
-    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-success': (myChosenAnswerName$ | async) === a.name }">
+    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-primary': (myChosenAnswerName$ | async) === a.name }">
       <td>
         {{ a.answer }}
         <button
