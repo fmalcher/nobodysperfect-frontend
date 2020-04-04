@@ -9,5 +9,6 @@
   <app-player-give-answer *ngSwitchCase="1"></app-player-give-answer>
   <app-player-wait-results *ngSwitchCase="2"></app-player-wait-results>
   <app-player-choose-answer *ngSwitchCase="3"></app-player-choose-answer>
-  <app-player-show-results-full *ngSwitchCase="4"></app-player-show-results-full>
+  <app-player-show-results-full [anonym]="true" *ngSwitchCase="4"></app-player-show-results-full>
+  <app-player-show-results-full *ngSwitchCase="5"></app-player-show-results-full>
 </ng-container>

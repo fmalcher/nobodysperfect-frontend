@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { DataService } from '../shared/data.service';
 import { GameAnswer } from '../shared/types';
 import { map, tap } from 'rxjs/operators';
@@ -10,6 +10,8 @@ import { map, tap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerShowResultsFullComponent implements OnInit {
+
+  @Input() anonym = false;
 
   answers$ = this.ds.answers$;
   question$ = this.ds.question$;

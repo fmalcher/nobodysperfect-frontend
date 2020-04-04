@@ -7,3 +7,4 @@
 | `2` | `waitForResults` |  | edit answers |
 | `3` | `chooseAnswer` | choose answer |  |
 | `4` | `resultsFull` | see results |  |
+| `5` | `resultsFullWithAuthor` | see results |  |

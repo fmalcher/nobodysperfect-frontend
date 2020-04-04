@@ -7,11 +7,11 @@
     <tr>
       <th>Antwort</th>
       <th>gewählt von</th>
-      <th>geschrieben von</th>
+      <th *ngIf="!anonym">geschrieben von</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-success': isModerator(a) }">
+    <tr *ngFor="let a of answers$ | async" [ngClass]="{ 'table-success': isModerator(a) && !anonym }">
       <td>
         {{ a.answer }}
       </td>
@@ -22,7 +22,7 @@
           </ng-container>
         </strong>
       </td>
-      <td>
+      <td *ngIf="!anonym">
         {{ a.name }}
       </td>
     </tr>
@@ -31,7 +31,7 @@
 
 
 <ng-container *ngIf="score$ | async as score">
-  <ng-container *ngIf="score.length">
+  <ng-container *ngIf="score.length && !anonym">
 
     <h4 class="mt-5">Punkte</h4>
 
