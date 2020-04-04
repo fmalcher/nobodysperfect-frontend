@@ -16,14 +16,14 @@
   <button type="button" (click)="setState(1)" class="btn btn-success mr-2">Frage zeigen und Antworteingabe öffnen (1)</button>
 </div>
 
+<app-moderator-own-answer></app-moderator-own-answer>
 <div *ngIf="(state$ | async) === 1">
-  <app-moderator-own-answer></app-moderator-own-answer>
   <strong>Anzahl Antworten:</strong> {{ (answers$ | async)?.length }}
 
   <pre>{{ answers$ | async | json }}</pre>
 </div>
 
-<div class="mb-2">
+<div class="mb-2 mt-2">
   <button type="button" (click)="setState(2)" class="btn btn-success mr-2">Antworteingabe schließen (2)</button>
 </div>
 
@@ -33,8 +33,8 @@
   <button type="button" (click)="setState(3)" class="btn btn-success mr-2">Antworten zeigen und Auswahl öffnen (3)</button>
 </div>
 
-<div class="mb-2">
-  <button type="button" (click)="setState(4)" class="btn btn-success mr-2">Ergebnisse zeigen ANONYM (4)</button>
+<div class="mb-2 mt-4">
+  <button type="button" (click)="setState(4)" class="btn btn-secondary mr-2">Ergebnisse zeigen ANONYM (4)</button>
 </div>
 
 <div class="mb-2">
@@ -42,6 +42,10 @@
 </div>
 
 <div class="bg-light p-3">
-<strong>Antworten</strong>
-<pre>{{ answers$ | async | json }}</pre>
+  <div class="mb-2">
+    <strong>Antworten gewählt:</strong> {{ numberOfChosens$ | async }}
+  </div>
+
+  <div><strong>Antworten</strong></div>
+  <pre>{{ answers$ | async | json }}</pre>
 </div>

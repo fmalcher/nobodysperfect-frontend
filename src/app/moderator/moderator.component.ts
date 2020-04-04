@@ -11,6 +11,7 @@ export class ModeratorComponent implements OnInit {
 
   state$ = this.ds.state$;
   answers$ = this.ds.answers$;
+  numberOfChosens$ = this.ds.numberOfChosens$;
 
   constructor(private ds: DataService) { }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { timer, ReplaySubject } from 'rxjs';
-import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, filter, exhaustMap } from 'rxjs/operators';
+import { timer, ReplaySubject, from } from 'rxjs';
+import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, filter, exhaustMap, mergeMap, distinct, toArray } from 'rxjs/operators';
 import { GameData, GameAnswer } from './types';
 
 import { environment } from '../../environments/environment';
@@ -32,6 +32,16 @@ export class DataService {
 
   answers$ = this.data$.pipe(
     map(data => data.answers)
+  );
+
+  numberOfChosens$ = this.answers$.pipe(
+    mergeMap(answers => from(answers).pipe(
+        mergeMap(a => from(a.answeredBy || [])),
+        distinct(),
+        toArray(),
+        map(arr => arr.length)
+      )
+    )
   );
 
   myAnswer$ = this.answers$.pipe(

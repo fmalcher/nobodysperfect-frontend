@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../shared/data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-player-choose-answer',
@@ -13,7 +14,7 @@ export class PlayerChooseAnswerComponent implements OnInit {
   myChosenAnswerName$ = this.ds.myChosenAnswerName$;
   question$ = this.ds.question$;
 
-  buttonsDisabled = false;
+  buttonsDisabled$ = this.myChosenAnswerName$.pipe(map(e => !!e));
 
   constructor(private ds: DataService) { }
 
@@ -22,7 +23,6 @@ export class PlayerChooseAnswerComponent implements OnInit {
 
   select(name: string) {
     this.ds.chooseAnswer(name).subscribe();
-    this.buttonsDisabled = true;
   }
 
 }

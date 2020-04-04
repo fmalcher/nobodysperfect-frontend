@@ -14,7 +14,7 @@
         {{ a.answer }}
         <button
           class="btn btn-sm float-right btn-warning"
-          [disabled]="buttonsDisabled"
+          [disabled]="buttonsDisabled$ | async"
           (click)="select(a.name)">Auswählen</button>
       </td>
     </tr>
