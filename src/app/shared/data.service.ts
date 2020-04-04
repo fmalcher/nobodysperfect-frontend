@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { timer, ReplaySubject } from 'rxjs';
-import { switchMapTo, shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, filter, tap } from 'rxjs/operators';
+import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, filter, exhaustMap } from 'rxjs/operators';
 import { GameData, GameAnswer } from './types';
 
 import { environment } from '../../environments/environment';
@@ -13,8 +13,8 @@ export class DataService {
 
   myName$ = new ReplaySubject<string>(1);
 
-  data$ = timer(0, 1500).pipe(
-    switchMapTo(this.getDataRaw()),
+  data$ = timer(0, 2000).pipe(
+    exhaustMap(() => this.getDataRaw()),
     distinctUntilChanged(),
     map(raw => JSON.parse(raw) as GameData),
     shareReplay(1)
