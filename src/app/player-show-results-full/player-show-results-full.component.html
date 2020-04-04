@@ -28,3 +28,23 @@
     </tr>
   </tbody>
 </table>
+
+
+<ng-container *ngIf="score$ | async as score">
+  <ng-container *ngIf="score.length">
+
+    <h4 class="mt-5">Punkte</h4>
+
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let s of score">
+          <td style="width: 5em">{{ s.name }}</td>
+          <td class="font-weight-bold" [ngClass]="{ 'text-success': s.score > 0 }">
+            <ng-container *ngIf="s.score > 0">+</ng-container>{{ s.score }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+</ng-container>
