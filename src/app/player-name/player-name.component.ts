@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-player-name',
   templateUrl: './player-name.component.html',
-  styleUrls: ['./player-name.component.scss']
+  styleUrls: ['./player-name.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerNameComponent implements OnInit {
 

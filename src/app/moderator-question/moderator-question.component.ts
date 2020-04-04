@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-moderator-question',
   templateUrl: './moderator-question.component.html',
-  styleUrls: ['./moderator-question.component.scss']
+  styleUrls: ['./moderator-question.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModeratorQuestionComponent implements OnInit {
 

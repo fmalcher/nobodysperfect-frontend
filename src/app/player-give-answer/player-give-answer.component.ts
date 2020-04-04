@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-player-give-answer',
   templateUrl: './player-give-answer.component.html',
-  styleUrls: ['./player-give-answer.component.scss']
+  styleUrls: ['./player-give-answer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerGiveAnswerComponent implements OnInit {
 

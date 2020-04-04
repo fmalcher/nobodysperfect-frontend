@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../shared/data.service';
 import { take, map, concatMap } from 'rxjs/operators';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
@@ -6,7 +6,8 @@ import { FormGroup, FormArray, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-moderator-answers-edit',
   templateUrl: './moderator-answers-edit.component.html',
-  styleUrls: ['./moderator-answers-edit.component.scss']
+  styleUrls: ['./moderator-answers-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModeratorAnswersEditComponent implements OnInit {
 

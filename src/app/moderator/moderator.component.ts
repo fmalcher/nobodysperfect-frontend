@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-moderator',
   templateUrl: './moderator.component.html',
-  styleUrls: ['./moderator.component.scss']
+  styleUrls: ['./moderator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModeratorComponent implements OnInit {
 
