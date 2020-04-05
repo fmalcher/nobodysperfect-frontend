@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://10.75.23.150:3000',
-  dataJSONUrl: 'http://10.75.23.150:3000/data.json'
+  apiUrl: 'http://localhost:3000',
+  dataJSONUrl: 'http://localhost:3000/data.json'
 };
 
 /*

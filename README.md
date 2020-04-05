@@ -1,27 +1,51 @@
-# NobodysPerfect
+# Nobody is Perfect Frontend Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+Frontend for the board game ["Nobody is perfect"](https://www.ravensburger.de/produkte/spiele/erwachsenenspiele/nobody-is-perfect-27225/index.html) to make it virtually playable via video conference.
+Be aware that this is a rather hacky solution that's supposed to "just work" and nothing more.
 
-## Development server
+## Installation and run
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Clone this repo.
+* Install and run an instance of the [backend server](https://github.com/fmalcher/nobodysperfect-backend).
+* Configure your backend host and port in the environment files in `src/environments`.
 
-## Code scaffolding
+```
+npm i
+ng serve
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Open your browser: http://localhost:4200
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Deployment
 
-## Running unit tests
+Build and deployment have to be done manually, there is no CI involved at the moment.
+To publish to GitHub Pages:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+npm run deploy
+```
 
-## Running end-to-end tests
+It will do a prod build and push to the `ghpages` branch of the repo.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Architecture
 
-## Further help
+For the sake of simplicity, data transfer between backend and frontend works with polling.
+The server persists all state in a static JSON file `data.json`.
+The frontend can poll this JSON file to get the current data.
+All calls from frontend to backend are HTTP POST calls that change data on the server.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+We are aware of the limitations of this approach, however with HTTP caching it should be quite tolerable to use polling.
+
+## Game States
+
+The phases of the game are determined by a state index.
+
+| State  | Description | Player | Moderator |
+|---|---|---|---|
+| `0` | `idle` |  | enter question |
+| `1` | `giveAnswer` | enter answer |  |
+| `2` | `waitForResults` |  | edit answers |
+| `3` | `chooseAnswer` | choose answer |  |
+| `4` | `resultsFull` | see results anonymized |  |
+| `5` | `resultsFullWithAuthor` | see results and score full |  |

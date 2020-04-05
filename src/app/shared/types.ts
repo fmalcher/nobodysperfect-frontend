@@ -7,5 +7,5 @@ export interface GameData {
 export interface GameAnswer {
   name: string;
   answer: string;
-  answeredBy: string[];
+  answeredBy?: string[];
 }
