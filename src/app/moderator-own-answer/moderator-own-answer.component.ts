@@ -6,7 +6,6 @@ import { DataService } from '../shared/data.service';
   selector: 'app-moderator-own-answer',
   templateUrl: './moderator-own-answer.component.html',
   styleUrls: ['./moderator-own-answer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModeratorOwnAnswerComponent implements OnInit {
 
@@ -15,11 +14,14 @@ export class ModeratorOwnAnswerComponent implements OnInit {
   });
 
   question$ = this.ds.question$;
-  myAnswer$ = this.ds.myAnswer$;
+  moderatorAnswerText$ = this.ds.moderatorAnswerText$;
 
   constructor(private ds: DataService) { }
 
   ngOnInit(): void {
+    this.moderatorAnswerText$.subscribe(answerText => {
+      this.form.get('answer').setValue(answerText, { emitEvent: false })
+    });
   }
 
   submit() {

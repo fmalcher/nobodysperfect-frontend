@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { map } from 'rxjs/operators';
+
 import { DataService } from '../shared/data.service';
-import { GameAnswer } from '../shared/types';
-import { map, tap } from 'rxjs/operators';
+import { GameAnswer, GameScore } from '../shared/types';
 
 @Component({
   selector: 'app-player-show-results-full',
@@ -22,15 +23,14 @@ export class PlayerShowResultsFullComponent implements OnInit {
 
   constructor(private ds: DataService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   isModerator(a: GameAnswer) {
-    return a.name === 'Moderator';
+    return a.name === this.ds.moderatorName;
   }
 
-  private calculateRoundScore(answers: GameAnswer[]){
-    const rightAnswer = answers.find(this.isModerator);
+  private calculateRoundScore(answers: GameAnswer[]): GameScore[] {
+    const rightAnswer = answers.find(a => this.isModerator(a));
     if (!rightAnswer) {
       return [];
     }

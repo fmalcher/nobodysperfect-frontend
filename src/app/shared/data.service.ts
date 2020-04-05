@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { timer, ReplaySubject, from } from 'rxjs';
-import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, filter, exhaustMap, mergeMap, distinct, toArray } from 'rxjs/operators';
-import { GameData, GameAnswer } from './types';
+import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, exhaustMap, mergeMap, distinct, toArray } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { GameData, GameAnswer } from './types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  myName$ = new ReplaySubject<string>(1);
+  readonly moderatorName = 'Moderator';
+  private playerName$ = new ReplaySubject<string>(1);
+  myName$ = this.playerName$.asObservable();
 
   data$ = timer(0, 2000).pipe(
     exhaustMap(() => this.getDataRaw()),
@@ -36,17 +38,24 @@ export class DataService {
 
   numberOfChosens$ = this.answers$.pipe(
     mergeMap(answers => from(answers).pipe(
-        mergeMap(a => from(a.answeredBy || [])),
-        distinct(),
-        toArray(),
-        map(arr => arr.length)
-      )
-    )
+      mergeMap(a => from(a.answeredBy || [])),
+      distinct(),
+      toArray(),
+      map(arr => arr.length)
+    ))
   );
 
-  myAnswer$ = this.answers$.pipe(
+  myAnswerText$ = this.answers$.pipe(
     withLatestFrom(this.myName$),
     map(([answers, myName]) => answers.find(a => a.name === myName)),
+    map(a => a?.answer),
+    distinctUntilChanged(),
+    shareReplay(1)
+  );
+
+  moderatorAnswerText$ = this.answers$.pipe(
+    map(answers => answers.find(a => a.name === this.moderatorName)),
+    map(a => a?.answer),
     distinctUntilChanged(),
     shareReplay(1)
   );
@@ -60,16 +69,22 @@ export class DataService {
   );
 
   constructor(private http: HttpClient) {
-    const name = localStorage.getItem('playerName');
-    this.myName$.next(name);
+    this.getNameFromStorage();
   }
 
   private getDataRaw() {
     return this.http.get(environment.dataJSONUrl, { responseType: 'text' });
   }
 
+  private getNameFromStorage() {
+    const name = localStorage.getItem('playerName');
+    if (name) {
+      this.playerName$.next(name);
+    }
+  }
+
   setName(name: string) {
-    this.myName$.next(name);
+    this.playerName$.next(name);
     localStorage.setItem('playerName', name);
   }
 
@@ -89,17 +104,20 @@ export class DataService {
     return this.http.post(environment.apiUrl + '/setanswers', { answers },  { responseType: 'text' });
   }
 
-  setAnswer(answer: string) {
+  setAnswer(name: string, answer: string) {
+    return this.http.post(environment.apiUrl + '/setanswer', { answer: { name, answer } },  { responseType: 'text' });
+  }
+
+  setMyAnswer(answer: string) {
     return this.myName$.pipe(
       take(1),
-      concatMap(name => this.http.post(environment.apiUrl + '/setanswer', { answer: { name, answer } },  { responseType: 'text' }))
+      concatMap(name => this.setAnswer(name, answer))
     );
   }
 
   setModAnswer(answer: string) {
-    return this.http.post(environment.apiUrl + '/setanswer', { answer: { name: 'Moderator', answer } },  { responseType: 'text' });
+    return this.setAnswer(this.moderatorName, answer);
   }
-
 
   chooseAnswer(answerName: string) {
     return this.myName$.pipe(

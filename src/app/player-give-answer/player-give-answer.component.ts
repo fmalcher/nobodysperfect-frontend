@@ -15,17 +15,17 @@ export class PlayerGiveAnswerComponent implements OnInit {
   });
 
   question$ = this.ds.question$;
-  myAnswer$ = this.ds.myAnswer$;
+  myAnswerText$ = this.ds.myAnswerText$;
 
   constructor(private ds: DataService) { }
 
   ngOnInit(): void {
-    this.myAnswer$.subscribe(answer => this.form.get('answer').setValue(answer.answer, { emitEvent: false }));
+    this.myAnswerText$.subscribe(answerText => this.form.get('answer').setValue(answerText, { emitEvent: false }));
   }
 
   submit() {
     const answer = this.form.value.answer;
-    this.ds.setAnswer(answer).subscribe();
+    this.ds.setMyAnswer(answer).subscribe();
   }
 
 }

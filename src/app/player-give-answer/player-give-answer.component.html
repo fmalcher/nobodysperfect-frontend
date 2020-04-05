@@ -8,8 +8,8 @@
   <button class="btn btn-primary" type="submit">Antwort abschicken</button>
 </form>
 
-<div *ngIf="myAnswer$ | async as myAnswer" class="mt-2">
-  <strong>Meine Antwort:</strong> {{ myAnswer.answer }}
+<div *ngIf="myAnswerText$ | async as myAnswerText" class="mt-2">
+  <strong>Meine Antwort:</strong> {{ myAnswerText }}
 </div>
 
 

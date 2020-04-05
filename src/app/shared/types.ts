@@ -9,3 +9,8 @@ export interface GameAnswer {
   answer: string;
   answeredBy?: string[];
 }
+
+export interface GameScore {
+  name: string;
+  score: number;
+}

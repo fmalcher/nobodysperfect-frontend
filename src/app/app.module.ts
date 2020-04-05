@@ -9,7 +9,6 @@ import { PlayerComponent } from './player/player.component';
 import { PlayerIdleComponent } from './player-idle/player-idle.component';
 import { PlayerGiveAnswerComponent } from './player-give-answer/player-give-answer.component';
 import { PlayerWaitResultsComponent } from './player-wait-results/player-wait-results.component';
-import { PlayerShowResultsAnonComponent } from './player-show-results-anon/player-show-results-anon.component';
 import { PlayerShowResultsFullComponent } from './player-show-results-full/player-show-results-full.component';
 import { PlayerChooseAnswerComponent } from './player-choose-answer/player-choose-answer.component';
 import { PlayerNameComponent } from './player-name/player-name.component';
@@ -25,7 +24,6 @@ import { ModeratorOwnAnswerComponent } from './moderator-own-answer/moderator-ow
     PlayerIdleComponent,
     PlayerGiveAnswerComponent,
     PlayerWaitResultsComponent,
-    PlayerShowResultsAnonComponent,
     PlayerShowResultsFullComponent,
     PlayerChooseAnswerComponent,
     PlayerNameComponent,
