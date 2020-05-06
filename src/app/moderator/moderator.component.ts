@@ -26,4 +26,14 @@ export class ModeratorComponent implements OnInit {
     this.ds.reset().subscribe();
   }
 
+  resetFull() {
+    if (window.confirm('Alles zurücketzen, inklusive Punkte?')) {
+      this.ds.resetFull().subscribe();
+    }
+  }
+
+  sumupScore() {
+    this.ds.sumupRoundScore().subscribe(e => console.log('FULL SCORE', e));
+  }
+
 }

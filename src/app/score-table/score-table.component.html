@@ -1,0 +1,16 @@
+
+<ng-container *ngIf="score$ | async as score">
+  <h3 class="mt-5">Gesamtpunktestand</h3>
+
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let s of score">
+        <td style="width: 5em">{{ s.name }}</td>
+        <td class="font-weight-bold">
+          {{ s.score }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</ng-container>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { timer, ReplaySubject, from } from 'rxjs';
+import { timer, ReplaySubject, from, forkJoin } from 'rxjs';
 import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, exhaustMap, mergeMap, distinct, toArray } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { GameData, GameAnswer } from './types';
+import { GameData, GameAnswer, GameScore } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,10 @@ export class DataService {
 
   answers$ = this.data$.pipe(
     map(data => data.answers)
+  );
+
+  score$ = this.data$.pipe(
+    map(data => data.score)
   );
 
   numberOfChosens$ = this.answers$.pipe(
@@ -68,6 +72,10 @@ export class DataService {
     shareReplay(1),
   );
 
+  roundScore$ = this.answers$.pipe(
+    map(answers => this.calculateRoundScore(answers))
+  );
+
   constructor(private http: HttpClient) {
     this.getNameFromStorage();
   }
@@ -81,6 +89,53 @@ export class DataService {
     if (name) {
       this.playerName$.next(name);
     }
+  }
+
+  private calculateRoundScore(answers: GameAnswer[]): GameScore[] {
+    const rightAnswer = answers.find(a => this.isModerator(a));
+    if (!rightAnswer) {
+      return [];
+    }
+
+    const rightAnsweredBy = rightAnswer.answeredBy || [];
+
+    return answers
+      .filter(a => !this.isModerator(a))
+      .map(a => {
+        // give 3 points for every person who chose your answer
+        // give 2 points for you choosing the right answer
+        return {
+          name: a.name,
+          score: (a.answeredBy || []).length * 3  + (rightAnsweredBy.includes(a.name) ? 2 : 0)
+        };
+      });
+  }
+
+  isModerator(a: GameAnswer) {
+    return a.name === this.moderatorName;
+  }
+
+  sumupRoundScore() {
+    return forkJoin([
+      this.roundScore$.pipe(take(1)),
+      this.score$.pipe(take(1)),
+    ]).pipe(
+      map(([roundScore, score]) => {
+        return roundScore.map(rs => {
+          const scoreEntry = score.find(s => s.name === rs.name);
+          if (!scoreEntry) {
+            return rs;
+          } else {
+            return {
+              name: scoreEntry.name,
+              score: scoreEntry.score + rs.score
+            };
+          }
+        })
+        .sort((a, b) => b.score - a.score);
+      }),
+      concatMap(score => this.setScore(score))
+    );
   }
 
   setName(name: string) {
@@ -100,8 +155,16 @@ export class DataService {
     return this.http.post(environment.apiUrl + '/reset', null,  { responseType: 'text' });
   }
 
+  resetFull() {
+    return this.http.post(environment.apiUrl + '/resetfull', null,  { responseType: 'text' });
+  }
+
   setAnswers(answers: GameAnswer[]) {
     return this.http.post(environment.apiUrl + '/setanswers', { answers },  { responseType: 'text' });
+  }
+
+  setScore(score: GameScore[]) {
+    return this.http.post(environment.apiUrl + '/setscore', { score },  { responseType: 'text' });
   }
 
   setAnswer(name: string, answer: string) {

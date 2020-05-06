@@ -6,14 +6,15 @@
 
 
 <div class="mb-2">
-  <button type="button" (click)="reset()" class="btn btn-danger mr-2">Reset (0)</button>
-  <button type="button" (click)="setState(0)" class="btn btn-warning">Idle (0)</button>
+  <button type="button" (click)="reset()" class="btn btn-sm btn-danger mr-2">Reset (0)</button>
+  <button type="button" (click)="setState(0)" class="btn btn-sm btn-warning mr-5">Idle (0)</button>
+  <button type="button" (click)="resetFull()" class="btn btn-sm btn-outline-danger ml-5">RESET ALL</button>
 </div>
 
 <app-moderator-question></app-moderator-question>
 
 <div class="mt-5 mb-2">
-  <button type="button" (click)="setState(1)" class="btn btn-success mr-2">Frage zeigen und Antworteingabe öffnen (1)</button>
+  <button type="button" (click)="setState(1)" class="btn btn-sm btn-success mr-2">Frage zeigen und Antworteingabe öffnen (1)</button>
 </div>
 
 <app-moderator-own-answer></app-moderator-own-answer>
@@ -24,22 +25,26 @@
 </div>
 
 <div class="mb-2 mt-2">
-  <button type="button" (click)="setState(2)" class="btn btn-success mr-2">Antworteingabe schließen (2)</button>
+  <button type="button" (click)="setState(2)" class="btn btn-sm btn-success mr-2">Antworteingabe schließen (2)</button>
 </div>
 
 <app-moderator-answers-edit *ngIf="(state$ | async) === 2"></app-moderator-answers-edit>
 
 <div class="mb-2">
-  <button type="button" (click)="setState(3)" class="btn btn-success mr-2">Antworten zeigen und Auswahl öffnen (3)</button>
+  <button type="button" (click)="setState(3)" class="btn btn-sm btn-success mr-2">Antworten zeigen und Auswahl öffnen (3)</button>
 </div>
 
 <div class="mb-2 mt-4">
-  <button type="button" (click)="setState(4)" class="btn btn-secondary mr-2">Ergebnisse zeigen ANONYM (4)</button>
+  <button type="button" (click)="setState(4)" class="btn btn-sm btn-secondary mr-2">Ergebnisse zeigen ANONYM (4)</button>
+  <button type="button" (click)="setState(5)" class="btn btn-sm btn-warning mr-2">Ergebnisse zeigen KOMPLETT (5)</button>
 </div>
 
-<div class="mb-2">
-  <button type="button" (click)="setState(5)" class="btn btn-warning mr-2">Ergebnisse zeigen KOMPLETT (5)</button>
+<div class="mt-5">
+  <button type="button" (click)="sumupScore()" class="btn btn-sm btn-danger mr-2">Punkte aufsummieren</button>
+  <button type="button" (click)="setState(6)" class="btn btn-sm btn-info mr-2">Gesamtpunkte zeigen (6)</button>
 </div>
+
+<app-score-table></app-score-table>
 
 <div class="bg-light p-3">
   <div class="mb-2">
@@ -49,3 +54,5 @@
   <div><strong>Antworten</strong></div>
   <pre>{{ answers$ | async | json }}</pre>
 </div>
+
+

@@ -48,4 +48,5 @@ The phases of the game are determined by a state index.
 | `2` | `waitForResults` |  | edit answers |
 | `3` | `chooseAnswer` | choose answer |  |
 | `4` | `resultsFull` | see results anonymized |  |
-| `5` | `resultsFullWithAuthor` | see results and score full |  |
+| `5` | `resultsFullWithAuthor` | see results and round score full |  |
+| `6` | `showFullScore` | see full score |  |

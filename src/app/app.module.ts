@@ -16,6 +16,7 @@ import { ModeratorComponent } from './moderator/moderator.component';
 import { ModeratorQuestionComponent } from './moderator-question/moderator-question.component';
 import { ModeratorAnswersEditComponent } from './moderator-answers-edit/moderator-answers-edit.component';
 import { ModeratorOwnAnswerComponent } from './moderator-own-answer/moderator-own-answer.component';
+import { ScoreTableComponent } from './score-table/score-table.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ModeratorOwnAnswerComponent } from './moderator-own-answer/moderator-ow
     ModeratorComponent,
     ModeratorQuestionComponent,
     ModeratorAnswersEditComponent,
-    ModeratorOwnAnswerComponent
+    ModeratorOwnAnswerComponent,
+    ScoreTableComponent
   ],
   imports: [
     BrowserModule,
