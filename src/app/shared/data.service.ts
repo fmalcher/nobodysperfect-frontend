@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { timer, ReplaySubject, from, forkJoin } from 'rxjs';
-import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, exhaustMap, mergeMap, distinct, toArray } from 'rxjs/operators';
+import { timer, ReplaySubject, from, forkJoin, EMPTY } from 'rxjs';
+import { shareReplay, map, take, concatMap, distinctUntilChanged, withLatestFrom, exhaustMap, mergeMap, distinct, toArray, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { GameData, GameAnswer, GameScore } from './types';
@@ -17,6 +17,7 @@ export class DataService {
 
   data$ = timer(0, 2000).pipe(
     exhaustMap(() => this.getDataRaw()),
+    catchError(() => EMPTY),
     distinctUntilChanged(),
     map(raw => JSON.parse(raw) as GameData),
     shareReplay(1)
@@ -102,8 +103,8 @@ export class DataService {
     return answers
       .filter(a => !this.isModerator(a))
       .map(a => {
-        // give 3 points for every person who chose your answer
-        // give 2 points for you choosing the right answer
+        // +3 to you for every person who chose your answer
+        // +2 to you for choosing the right answer
         return {
           name: a.name,
           score: (a.answeredBy || []).length * 3  + (rightAnsweredBy.includes(a.name) ? 2 : 0)
