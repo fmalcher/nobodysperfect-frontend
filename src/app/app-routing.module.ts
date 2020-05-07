@@ -9,7 +9,7 @@ import { InfoPageComponent } from './info-page/info-page.component';
 const routes: Routes = [
   { path: '', redirectTo: 'player', pathMatch: 'full' },
   { path: 'player', component: PlayerComponent },
-  { path: 'moderator', component: ModeratorComponent },
+  { path: 'moderator/nbkHG87ivIghj8zuhjvihj', component: ModeratorComponent },
   { path: 'score', component: ScorePageComponent },
   { path: 'info', component: InfoPageComponent }
 ];
