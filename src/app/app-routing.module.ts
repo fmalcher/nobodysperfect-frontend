@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PlayerComponent } from './player/player.component';
 import { ModeratorComponent } from './moderator/moderator.component';
+import { ScorePageComponent } from './score-page/score-page.component';
+import { InfoPageComponent } from './info-page/info-page.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'player', pathMatch: 'full' },
   { path: 'player', component: PlayerComponent },
-  { path: 'moderator', component: ModeratorComponent }
+  { path: 'moderator', component: ModeratorComponent },
+  { path: 'score', component: ScorePageComponent },
+  { path: 'info', component: InfoPageComponent }
 ];
 
 @NgModule({
